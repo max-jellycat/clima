@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:clima/screens/loading_screen.dart';
 
-void main() {
+Future main() async {
+  await DotEnv().load('.env');
   runApp(App());
 }
 
