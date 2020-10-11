@@ -44,6 +44,19 @@ class _LocationScreenState extends State<LocationScreen> {
     });
   }
 
+  void onLocationIconPressed() async {
+    dynamic data = await weatherService.getLocationWeather();
+    this.updateUI(data);
+  }
+
+  void onCityIconPressed() async {
+    dynamic cityName = await Navigator.pushNamed(context, 'city');
+    if (cityName != null) {
+      dynamic data = await weatherService.getCityWeather(cityName);
+      this.updateUI(data);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,11 +73,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () async {
-                        dynamic data =
-                            await weatherService.getLocationWeather();
-                        this.updateUI(data);
-                      },
+                      onPressed: onLocationIconPressed,
                       child: Icon(
                         CupertinoIcons.location_fill,
                         size: kMenuIconSize,
@@ -72,15 +81,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ),
                     FlatButton(
-                      onPressed: () async {
-                        dynamic cityName =
-                            await Navigator.pushNamed(context, 'city');
-                        if (cityName != null) {
-                          dynamic data =
-                              await weatherService.getCityWeather(cityName);
-                          this.updateUI(data);
-                        }
-                      },
+                      onPressed: onCityIconPressed,
                       child: Icon(
                         CupertinoIcons.building_2_fill,
                         size: kMenuIconSize,

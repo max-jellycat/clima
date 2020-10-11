@@ -1,25 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 
 class WeatherService {
+  NetworkService client = NetworkService();
+
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
-    NetworkService client = NetworkService(
-      url:
-          "/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric",
-    );
+    client.setUrl(
+        "/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric");
     dynamic data = await client.getData();
 
     return data;
   }
 
   Future<dynamic> getCityWeather(String city) async {
-    NetworkService client = NetworkService(
-      url: "/weather?q=$city&units=metric",
-    );
+    client.setUrl("/weather?q=$city&units=metric");
     dynamic data = await client.getData();
 
     return data;

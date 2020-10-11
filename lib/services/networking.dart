@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class NetworkService {
-  final String url;
+  String url;
 
   NetworkService({this.url});
 
@@ -22,5 +22,9 @@ class NetworkService {
     } catch (e) {
       print(e);
     }
+  }
+
+  void setUrl(String url) {
+    this.url = url;
   }
 }
