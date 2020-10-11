@@ -1,22 +1,36 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
 
-class WeatherModel {
-  IconData getWeatherIcon(int condition) {
+class WeatherService {
+  Future<dynamic> getLocationWeather() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+
+    NetworkService client = NetworkService(
+      url:
+          "/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric",
+    );
+    dynamic data = await client.getData();
+
+    return data;
+  }
+
+  String getWeatherIcon(int condition) {
     if (condition < 300) {
-      return CupertinoIcons.cloud_bolt;
+      return 'thunderstorm';
     } else if (condition < 400) {
-      return CupertinoIcons.cloud_drizzle;
+      return 'sleet';
     } else if (condition < 600) {
-      return CupertinoIcons.cloud_heavyrain;
+      return 'rain';
     } else if (condition < 700) {
-      return CupertinoIcons.cloud_snow;
+      return 'snow-wind';
     } else if (condition < 800) {
-      return CupertinoIcons.cloud_fog;
+      return 'fog';
     } else if (condition == 800) {
-      return CupertinoIcons.sun_max;
+      return 'day-sunny';
     } else if (condition <= 804) {
-      return CupertinoIcons.cloud_sun;
+      return 'day-cloudy';
     }
 
     return null;

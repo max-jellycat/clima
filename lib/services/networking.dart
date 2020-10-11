@@ -9,8 +9,9 @@ class NetworkService {
 
   Future<dynamic> getData() async {
     try {
+      String apiUrl = DotEnv().env['API_URL'];
       String apiKey = DotEnv().env['API_KEY'];
-      Response res = await get("${this.url}&appid=$apiKey");
+      Response res = await get("$apiUrl${this.url}&appid=$apiKey");
 
       if (res.statusCode == 200) {
         dynamic data = jsonDecode(res.body);

@@ -5,6 +5,7 @@ const kAccentColor = Color(0xFFFBC531);
 const kBoxColor = Color(0xFF192A56);
 
 const kMenuIconSize = 32.0;
+const kWeatherIconSize = 128.0;
 
 const kCityTextStyle = TextStyle(
   fontSize: 48.0,
