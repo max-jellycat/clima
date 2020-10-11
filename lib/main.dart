@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clima/utils/router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:clima/screens/loading_screen.dart';
 
 Future main() async {
   await DotEnv().load('.env');
@@ -17,7 +17,8 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         fontFamily: 'Spartan',
       ),
-      home: LoadingScreen(),
+      initialRoute: LoadingScreenRoute,
+      onGenerateRoute: generateRoute,
     );
   }
 }

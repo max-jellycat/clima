@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:clima/utils/router.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 
@@ -11,16 +13,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
-    double latitude = location.latitude;
-    double longitude = location.longitude;
 
     NetworkService client = NetworkService(
       url:
-          "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude",
+          "https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric",
     );
     dynamic data = await client.getData();
 
-    print(data);
+    Navigator.pushNamed(
+      context,
+      LocationScreenRoute,
+      arguments: LocationScreenArguments(data),
+    );
   }
 
   @override
@@ -32,7 +36,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: null,
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
     );
   }
 }
