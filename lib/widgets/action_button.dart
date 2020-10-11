@@ -1,14 +1,4 @@
 import "package:flutter/material.dart";
-import "package:clima/utils/constants.dart";
-
-const _kSizeContraints = BoxConstraints.tightFor(
-  width: 56.0,
-  height: 56.0,
-);
-const _kSmallSizeContraints = BoxConstraints.tightFor(
-  width: 48.0,
-  height: 48.0,
-);
 
 const _kElevation = 6.0;
 const _kRadius = 8.0;
