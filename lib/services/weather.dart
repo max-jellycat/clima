@@ -16,6 +16,15 @@ class WeatherService {
     return data;
   }
 
+  Future<dynamic> getCityWeather(String city) async {
+    NetworkService client = NetworkService(
+      url: "/weather?q=$city&units=metric",
+    );
+    dynamic data = await client.getData();
+
+    return data;
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return 'thunderstorm';

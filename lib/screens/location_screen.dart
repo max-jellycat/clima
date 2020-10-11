@@ -29,6 +29,13 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic data) {
+    if (data == null) {
+      this.temperature = 0;
+      this.icon = "alien";
+      this.message = "Unable to get weather";
+      this.city = "Error";
+      return;
+    }
     this.setState(() {
       this.temperature = data["main"]["temp"].toInt();
       this.icon = weatherService.getWeatherIcon(data["weather"][0]["id"]);
@@ -65,7 +72,15 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        dynamic cityName =
+                            await Navigator.pushNamed(context, 'city');
+                        if (cityName != null) {
+                          dynamic data =
+                              await weatherService.getCityWeather(cityName);
+                          this.updateUI(data);
+                        }
+                      },
                       child: Icon(
                         CupertinoIcons.building_2_fill,
                         size: kMenuIconSize,

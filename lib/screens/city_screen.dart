@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/utils/constants.dart';
+import 'package:clima/widgets/action_button.dart';
 
 class CityScreen extends StatefulWidget {
   @override
@@ -7,6 +9,14 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  String city;
+
+  void handleChange(value) {
+    setState(() {
+      this.city = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,23 +28,28 @@ class _CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: FlatButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 50.0,
-                    )),
+                  onPressed: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    size: kMenuIconSize,
+                    color: kAccentColor,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(16.0),
-                child: null,
-              ),
-              FlatButton(
-                onPressed: () {},
-                child: Text(
-                  'Get Weather',
-                  style: kButtonTextStyle,
+                child: TextField(
+                  style: kTextFieldStyle,
+                  decoration: kTextFieldInputDecoration,
+                  onChanged: (value) => this.handleChange(value),
                 ),
               ),
+              ActionButton(
+                  text: 'Get weather',
+                  backgroundColor: kAccentColor,
+                  onPressed: () {
+                    Navigator.pop(context, this.city);
+                  }),
             ],
           ),
         ),
