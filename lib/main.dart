@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clima/utils/constants.dart';
 import 'package:clima/utils/router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -16,6 +17,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         fontFamily: 'Spartan',
+        accentColor: kAccentColor,
+        scaffoldBackgroundColor: kPrimaryColor,
       ),
       initialRoute: LoadingScreenRoute,
       onGenerateRoute: generateRoute,
